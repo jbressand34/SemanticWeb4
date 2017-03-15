@@ -1,0 +1,11 @@
+(?a rdfs:subClassOf ?c) (?c mcf:InsertOn ?b) -> (?a mcf:InsertOn ?b);
+(?a mcf:IsInvolvedIn ?c) (?c rdfs:subClassOf ?b) -> (?a mcf:IsInvolvedIn ?b);
+(?a mcf:LeftSubClassOf ?b)  -> (?a rdfs:subClassOf ?b);
+(?a mcf:RightSubClassOf ?b) -> (?a rdfs:subClassOf ?b);
+(?a mcf:HasFunction ?b) -> (?a mcf:ContributesTo ?b);
+(?a mcf:ContributesTo ?c) (?c mcf:IsInvolvedIn ?b) -> (?a mcf:ContributesTo ?b);
+(?a mcf:ContributesTo ?c) (?c rdfs:subClassOf ?b) -> (?a mcf:ContributesTo ?b);
+(?a mcf:InsertOn ?c) (?c mcf:PartOf ?b) -> (?a mcf:InsertOn ?b);
+(?a mcf:IsInvolvedIn ?c) (?c mcf:IsInvolvedIn ?b) -> (?a mcf:IsInvolvedIn ?b);
+(?a mcf:PartOf ?c) (?c mcf:PartOf ?b) -> (?a mcf:PartOf ?b);
+(?a rdfs:subClassOf ?c) (?c rdfs:subClassOf ?b) -> (?a rdfs:subClassOf ?b);
