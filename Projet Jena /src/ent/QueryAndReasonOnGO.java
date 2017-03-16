@@ -1,6 +1,4 @@
 package ent;
-
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -27,7 +25,7 @@ public class QueryAndReasonOnGO {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 
         // Declaration des espaces de noms et du chemin vers le fichier contenant l'ontologie
-    	
+        
         String mcfURI = "http://www.mycorporisfabrica.org/ontology/mcf.owl#";
         PrintUtil.registerPrefix("mcf", mcfURI);
 
@@ -53,42 +51,40 @@ public class QueryAndReasonOnGO {
                 + " WHERE  {?id <http://www.geneontology.org/formats/oboInOwl#created_by>  \"midori\" ."
                 + "         ?id <http://www.w3.org/2000/01/rdf-schema#label> ?label ." + "         } " + " LIMIT 10";
 
-        // 
-        String howManyTriples = "select (count(*) as ?total_number_of_triples) where {?s ?p ?o}";
+        String prefix = " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + " PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                + " PREFIX  owl: <http://www.w3.org/2002/07/owl#>"
+                + " PREFIX  go: <http://www.geneontology.org/dtds/go.dtd#>"
+                + " PREFIX  obo: <http://purl.obolibrary.org/obo/>" ;
+        
+        //
+        String howManyTriples = prefix+"\n select (count(*) as ?total_number_of_triples) where {?s go:part_of ?o}";
 
 
-        // 
+        //
+        StringBuilder rules_mcf = new StringBuilder();
+    
+
         StringBuilder rules = new StringBuilder();
-
-        // Définition des régles 
-        //rules.append("[rule14: (?a go:negatively_regulates ?c), (?c go:part_of ?b)  -> (?a go:regulates ?b)] ");
-
-        //is_a
-        rules.append("[rule1: (?a go:is_a ?b), (?b go:is_a ?c)  -> (?a go:is_a ?d)] ");
-        rules.append("[rule2: (?a go:is_a ?b), (?b go:part_of ?d)  -> (?a go:part_of ?d)] ");
-        rules.append("[rule3: (?a go:is_a ?b), (?b go:regulates ?d)  -> (?a go:regulates ?d)] ");
-        rules.append("[rule4: (?a go:is_a ?b), (?b go:positively_regulates ?d)  -> (?a go:positively_regulates ?d)] ");
-        rules.append("[rule5: (?a go:is_a ?b), (?b go:negatively_regulates ?d)  -> (?a go:negatively_regulates ?d)] ");
-        
-        //part_of
-        rules.append("[rule6: (?a go:part_of ?b), (?b go:is_a ?d)  -> (?a go:part_of ?d)] ");
-        rules.append("[rule7: (?a go:part_of ?b), (?b go:part_of  ?d)  -> (?a go:part_of ?d)] ");
-        
-        //regulates
-        rules.append("[rule8: (?a go:regulates ?c), (?c go:is_a ?b)  -> (?a go:regulates ?b)] ");
-        rules.append("[rule9: (?a go:regulates ?c), (?c go:part_of ?b)  -> (?a go:regulates ?b)] ");
-
-        //positively-regulates
-        rules.append("[rule10: (?a go:positively_regulates ?c), (?c go:is_a ?b)  -> (?a go:positively_regulates ?b)] ");
-        rules.append("[rule11: (?a go:positively_regulates ?c), (?c go:part_of ?b)  -> (?a go:regulates ?b)] ");
-
-        //negatively-regulates
-        rules.append("[rule12: (?a go:negatively_regulates ?c), (?c go:is_a ?b)  -> (?a go:negatively_regulates ?b)] ");
-        rules.append("[rule13: (?a go:negatively_regulates ?c), (?c go:part_of ?b)  -> (?a go:regulates ?b)] ");
-
-        //has-part
-        rules.append("[rule14: (?a go:has_part ?c), (?c go:is_a ?b)  -> (?a go:has_part ?b)] ");
-        rules.append("[rule15: (?a go:has_part ?c), (?c go:has_part ?b)  -> (?a go:has_part ?b)] ");
+        // Définition des régles
+        /*rules.append("[rule1:  (?x go:is_a ?y), (?y go:is_a ?z) -> (?x go:is_a ?z)]");
+        rules.append("[rule2:  (?x go:is_a ?y), (?y go:part_of ?z) -> (?x go:part_of ?z)]");
+        rules.append("[rule3:  (?x go:is_a ?y), (?y go:regulates ?z) -> (?x go:regulates ?z)]");
+        rules.append("[rule4:  (?x go:is_a ?y), (?y go:positively_regulates ?z) -> (?x go:positively_regulates ?z)]");
+        rules.append("[rule5:  (?x go:is_a ?y), (?y go:negatively_regulates ?z) -> (?x go:negatively_regulates ?z)] ");
+        rules.append("[rule6:  (?x go:is_a ?y), (?y go:has_part ?z) -> (?x go:has_part ?z)] ");
+        rules.append("[rule7:  (?x go:part_of ?y), (?y go:is_a ?z) -> (?x go:part_of ?z)] ");
+        rules.append("[rule8:  (?x go:part_of ?y), (?y go:part_of ?z) -> (?x go:part_of ?z)] ");
+        rules.append("[rule9:  (?x go:regulates ?y), (?y go:is_a ?z) -> (?x go:regulates ?z)] ");
+        rules.append("[rule10:  (?x go:regulates ?y), (?y go:part_of ?z) -> (?x go:regulates ?z)] ");
+        rules.append("[rule11:  (?x go:positively_regulates ?y), (?y go:is_a ?z) -> (?x go:positively_regulates ?z)] ");
+        rules.append("[rule12:  (?x go:positively_regulates ?y), (?y go:part_of ?z) -> (?x go:regulates ?z)] ");
+        rules.append("[rule13:  (?x go:negatively_regulates ?y), (?y go:is_a ?z) -> (?x go:negatively_regulates ?z)] ");
+        rules.append("[rule14:  (?x go:negatively_regulates ?y), (?y go:part_of ?z) -> (?x go:regulates ?z)] ");
+        rules.append("[rule15:  (?x go:has_part ?y), (?y go:is_a ?z) -> (?x go:has_part ?z)] ");
+        rules.append("[rule16:  (?x go:has_part ?y), (?y go:has_part ?z) -> (?x go:has_part ?z)] ");
+        */
+        //rules_mcf.append("[rule14: (?a go:negatively_regulates ?c), (?c go:part_of ?b)  -> (?a go:regulates ?b)] ");
 
         // Création d'un modèle RDF et chargement du fichier
         Model model_mcf = ModelFactory.createDefaultModel();
@@ -108,7 +104,7 @@ public class QueryAndReasonOnGO {
         GenericRuleReasoner reasoner_mcf = (GenericRuleReasoner) GenericRuleReasonerFactory.theInstance().create(null);
 
         reasoner_mcf.setRules(Rule.parseRules(rules.toString()));
-
+        reasoner_mcf.setDerivationLogging(true);
         // Changemnt du type du raisonneur
         reasoner_mcf.setMode(GenericRuleReasoner.HYBRID);
 
