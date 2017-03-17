@@ -9,7 +9,7 @@ Ce qui reste à faire :
 
    - Deuxième partie : 
       - Démonstration par récurrence
-      - 3) Donnez l’ensemble des réécritures 
+      - 3) Donnez l’ensemble des réécritures  // Jérémy has burst it 
       - Nombre d’instances utilisant les trois moteurs d’inférence pour GO
 
 
