@@ -8,7 +8,7 @@ Ce qui reste à faire :
       - (Exo3) 8-Combien de liens externes retrouvez vous (requête 7)
 
    - Deuxième partie : 
-      - Démonstration par récurrence
+      - Démonstration par récurrence // Jérémy did it with magic
       - 3) Donnez l’ensemble des réécritures  // Jérémy has burst it 
       - Nombre d’instances utilisant les trois moteurs d’inférence pour GO
 
