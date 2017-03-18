@@ -3,9 +3,9 @@ Ce qui reste à faire :
    - Première partie : 
       - (Exo1) 4-Donnez le deuxième article du flux RSS (ordre chronologique) ainsi que l’avant dernier (UNION).//Utilisation de OFFSET et COUNT
 
-      - (Exo3) 7-Cherchez des références vers des entrepôts de données RDF "externes" (autres que DBPedia) //Utilisation de Filter str startswith.
+      - (Exo3) 7-Cherchez des références vers des entrepôts de données RDF "externes" (autres que DBPedia) //Utilisation de Filter str startswith. // done
 
-      - (Exo3) 8-Combien de liens externes retrouvez vous (requête 7)
+      - (Exo3) 8-Combien de liens externes retrouvez vous (requête 7) //done
 
    - Deuxième partie : 
       - Démonstration par récurrence // Jérémy did it with magic
