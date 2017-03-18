@@ -1,7 +1,7 @@
 Ce qui reste à faire : 
 
    - Première partie : 
-      - (Exo1) 4-Donnez le deuxième article du flux RSS (ordre chronologique) ainsi que l’avant dernier (UNION).//Utilisation de OFFSET et COUNT
+      - (Exo1) 4-Donnez le deuxième article du flux RSS (ordre chronologique) ainsi que l’avant dernier (UNION).//Utilisation de OFFSET et COUNT //done 
 
       - (Exo3) 7-Cherchez des références vers des entrepôts de données RDF "externes" (autres que DBPedia) //Utilisation de Filter str startswith. // done
 
